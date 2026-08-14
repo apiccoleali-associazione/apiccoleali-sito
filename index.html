@@ -191,6 +191,47 @@
     font-style:italic; color:var(--teal-deep); text-align:center;
     font-size:1.25rem; margin-top:1.6em;
   }
+  .percorso-points{
+    list-style:none;
+    margin:28px 0;
+    padding:0;
+    display:grid;
+    gap:16px;
+  }
+  .percorso-points li{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    color:var(--ink);
+    font-size:1.05rem;
+    text-align:left;
+  }
+  .percorso-points li::before{
+    content:'';
+    width:9px; height:9px; border-radius:50%;
+    background:var(--gold);
+    margin-top:9px;
+    flex:none;
+  }
+  .volontario-card{
+    background:linear-gradient(135deg, rgba(232,120,90,.08), rgba(212,169,74,.08));
+    border:1.5px solid var(--coral);
+    border-radius:22px;
+    padding:48px;
+    text-align:center;
+  }
+  .volontario-card .eyebrow{ color:var(--teal); }
+  .volontario-card h3{
+    font-size:clamp(1.6rem, 3vw, 2.1rem);
+    font-weight:500;
+    color:var(--ink);
+    margin:10px 0 20px;
+  }
+  .volontario-card p{
+    color:var(--ink-soft);
+    max-width:560px;
+    margin:0 auto;
+  }
   .percorso-image{
     width:100%; border-radius:22px; overflow:hidden;
     box-shadow:0 20px 50px -30px rgba(43,36,32,.3);
@@ -337,7 +378,17 @@
     <div class="chi-siamo-card">
       <p>Al centro del nostro progetto c'è l'accompagnamento allo studio: un percorso pensato per sostenere bambini e ragazzi nei compiti e nella crescita personale, con momenti individuali di supporto per chi ha bisogno di un aiuto più mirato e momenti di gruppo per imparare a collaborare, condividere e stare insieme.</p>
       <p>Un aspetto che ci contraddistingue è la presenza di ragazzi più grandi che affiancano i più piccoli, sotto la supervisione costante di educatori specializzati: un'occasione reale di crescita reciproca, responsabilità e cittadinanza attiva.</p>
+      <ul class="percorso-points">
+        <li>Collaborazione e sostegno reciproco tra pari</li>
+        <li>Ambiente sereno, dove l'errore è un'opportunità</li>
+        <li>Autonomia e protagonismo dello studente</li>
+      </ul>
       <p class="closing">Un percorso di studio, socialità e crescita, pensato per ogni socio dell'associazione.</p>
+    </div>
+    <div class="volontario-card" style="margin-top:36px;">
+      <p class="eyebrow">Sei uno studente delle superiori?</p>
+      <h3>Diventa aiutante volontario</h3>
+      <p>Vivi un'esperienza che cambia il mondo di un bambino, e insieme il tuo: impari a gestire gruppi, comunicare e collaborare, competenze preziose per l'università e per il lavoro.</p>
     </div>
   </div>
 </section>
