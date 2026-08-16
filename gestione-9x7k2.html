@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Gestione Interessati — A Piccole Ali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F1E3;
+    --cream-soft:#FBF7EE;
+    --teal:#2E7D74;
+    --teal-deep:#1F5750;
+    --coral:#E8785A;
+    --coral-deep:#D4633F;
+    --gold:#D4A94A;
+    --ink:#2B2420;
+    --ink-soft:#5B534A;
+    --white:#FFFDF8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'EB Garamond', Georgia, serif;
+    min-height:100vh;
+  }
+  .eyebrow{
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    color:var(--coral-deep);
+  }
+
+  /* Login screen */
+  .login-wrap{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  .login-card{
+    background:var(--white);
+    border-radius:22px;
+    padding:44px 38px;
+    max-width:380px; width:100%;
+    box-shadow:0 20px 50px -30px rgba(43,36,32,.3);
+    border-top:4px solid var(--teal);
+  }
+  .login-card h1{
+    font-size:1.7rem; font-weight:500; color:var(--teal-deep);
+    margin-top:8px; margin-bottom:24px;
+  }
+  .field{ margin-bottom:18px; }
+  .field label{
+    display:block; font-family:'Quicksand',sans-serif; font-weight:600;
+    font-size:.82rem; color:var(--teal-deep); margin-bottom:6px;
+  }
+  .field input{
+    width:100%; padding:12px 14px; border-radius:10px;
+    border:1.5px solid #E4DCC8; background:var(--cream-soft);
+    font-family:'EB Garamond', serif; font-size:1.02rem; color:var(--ink);
+  }
+  .field input:focus{ outline:none; border-color:var(--teal); }
+  .btn{
+    font-family:'Quicksand',sans-serif; font-weight:700; font-size:.92rem;
+    padding:13px 28px; border-radius:100px; border:none; cursor:pointer;
+    background:var(--coral); color:var(--white);
+    width:100%;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .btn:hover{ background:var(--coral-deep); transform:translateY(-1px); }
+  .btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+  .btn-ghost{
+    background:transparent; color:var(--teal-deep); border:1.5px solid var(--teal);
+    width:auto; padding:9px 20px; font-size:.85rem;
+  }
+  .btn-ghost:hover{ background:var(--teal); color:var(--white); }
+  .login-msg{
+    margin-top:14px; font-family:'Quicksand',sans-serif; font-size:.85rem;
+    color:var(--coral-deep); display:none;
+  }
+
+  /* Dashboard */
+  .dash{ display:none; padding:28px 20px 60px; max-width:1100px; margin:0 auto; }
+  .dash-header{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:14px;
+    margin-bottom:26px;
+  }
+  .dash-header h1{
+    font-size:1.6rem; font-weight:500; color:var(--teal-deep);
+  }
+  .filters{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .filter-btn{
+    font-family:'Quicksand',sans-serif; font-weight:600; font-size:.82rem;
+    padding:9px 18px; border-radius:100px; border:1.5px solid var(--teal);
+    background:var(--white); color:var(--teal-deep); cursor:pointer;
+    transition:all .2s ease;
+  }
+  .filter-btn.active{ background:var(--teal); color:var(--white); }
+  .stats{
+    font-family:'Quicksand',sans-serif; font-size:.85rem; color:var(--ink-soft);
+    margin-bottom:18px;
+  }
+  .table-wrap{
+    background:var(--white); border-radius:18px; overflow-x:auto;
+    box-shadow:0 20px 50px -34px rgba(43,36,32,.28);
+  }
+  table{ width:100%; border-collapse:collapse; min-width:820px; }
+  th{
+    font-family:'Quicksand',sans-serif; font-weight:700; font-size:.75rem;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--teal-deep);
+    text-align:left; padding:14px 16px; background:var(--cream-soft);
+    border-bottom:2px solid var(--gold);
+    position:sticky; top:0;
+  }
+  td{
+    padding:13px 16px; font-size:.98rem; color:var(--ink);
+    border-bottom:1px solid #EEE6D3;
+    vertical-align:middle;
+  }
+  tr:last-child td{ border-bottom:none; }
+  tr:hover td{ background:rgba(46,125,116,.04); }
+  .badge{
+    font-family:'Quicksand',sans-serif; font-weight:700; font-size:.72rem;
+    padding:4px 12px; border-radius:100px; display:inline-block;
+    white-space:nowrap;
+  }
+  .badge.partecipante{ background:rgba(46,125,116,.12); color:var(--teal-deep); }
+  .badge.volontario{ background:rgba(232,120,90,.14); color:var(--coral-deep); }
+  .contact-toggle{
+    display:flex; align-items:center; gap:8px; cursor:pointer;
+    font-family:'Quicksand',sans-serif; font-size:.82rem;
+  }
+  .contact-toggle input{ width:17px; height:17px; accent-color:var(--teal); cursor:pointer; }
+  .empty-state, .loading-state{
+    text-align:center; padding:60px 20px; color:var(--ink-soft);
+    font-style:italic;
+  }
+  .top-msg{
+    font-family:'Quicksand',sans-serif; font-size:.85rem;
+    padding:12px 18px; border-radius:12px; margin-bottom:18px; display:none;
+  }
+  .top-msg.error{ display:block; background:rgba(232,120,90,.12); color:var(--coral-deep); }
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="login-screen">
+  <div class="login-card">
+    <p class="eyebrow">A Piccole Ali</p>
+    <h1>Accesso riservato</h1>
+    <form id="login-form">
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn" id="login-btn">Accedi</button>
+      <p class="login-msg" id="login-msg"></p>
+    </form>
+  </div>
+</div>
+
+<div class="dash" id="dashboard">
+  <div class="dash-header">
+    <div>
+      <p class="eyebrow">A Piccole Ali</p>
+      <h1>Gestione Interessati</h1>
+    </div>
+    <button class="btn btn-ghost" id="logout-btn">Esci</button>
+  </div>
+
+  <div class="top-msg" id="dash-msg"></div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="tutti">Tutti</button>
+    <button class="filter-btn" data-filter="partecipante">Partecipanti</button>
+    <button class="filter-btn" data-filter="volontario">Volontari</button>
+    <button class="filter-btn" data-filter="da-contattare">Da contattare</button>
+  </div>
+
+  <p class="stats" id="stats-line"></p>
+
+  <div class="table-wrap">
+    <table id="data-table" style="display:none;">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Età</th>
+          <th>Contatto</th>
+          <th>Tipo</th>
+          <th>Data</th>
+          <th>Contattato</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+    <div class="loading-state" id="loading-state">Caricamento in corso...</div>
+    <div class="empty-state" id="empty-state" style="display:none;">Nessun interessato trovato per questo filtro.</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  const SUPABASE_URL = 'https://xidhclcpiqtppyfwrzwn.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpZGhjbGNwaXF0cHB5ZndyenduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTI4MDUsImV4cCI6MjEwMjI4ODgwNX0.lTd32KqdEz2pvcO0wqV25Pmz1dxHQ9RM6MMq3brVLc0';
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const loginScreen = document.getElementById('login-screen');
+  const dashboard = document.getElementById('dashboard');
+  const loginForm = document.getElementById('login-form');
+  const loginBtn = document.getElementById('login-btn');
+  const loginMsg = document.getElementById('login-msg');
+  const logoutBtn = document.getElementById('logout-btn');
+  const dashMsg = document.getElementById('dash-msg');
+  const table = document.getElementById('data-table');
+  const tableBody = document.getElementById('table-body');
+  const loadingState = document.getElementById('loading-state');
+  const emptyState = document.getElementById('empty-state');
+  const statsLine = document.getElementById('stats-line');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+
+  let allRows = [];
+  let currentFilter = 'tutti';
+
+  function showDashboard(){
+    loginScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    loadData();
+  }
+  function showLogin(){
+    loginScreen.style.display = 'flex';
+    dashboard.style.display = 'none';
+  }
+
+  // Check existing session on load
+  supabaseClient.auth.getSession().then(({ data }) => {
+    if (data.session) showDashboard(); else showLogin();
+  });
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginMsg.style.display = 'none';
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Accesso in corso...';
+
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'Accedi';
+
+    if (error) {
+      loginMsg.style.display = 'block';
+      loginMsg.textContent = 'Credenziali non valide. Riprova.';
+      return;
+    }
+    showDashboard();
+  });
+
+  logoutBtn.addEventListener('click', async () => {
+    await supabaseClient.auth.signOut();
+    showLogin();
+  });
+
+  async function loadData(){
+    loadingState.style.display = 'block';
+    table.style.display = 'none';
+    emptyState.style.display = 'none';
+    dashMsg.className = 'top-msg';
+
+    const { data, error } = await supabaseClient
+      .from('interessati_iscrizione')
+      .select('*')
+      .order('creato_il', { ascending: false });
+
+    loadingState.style.display = 'none';
+
+    if (error) {
+      dashMsg.className = 'top-msg error';
+      dashMsg.textContent = 'Errore nel caricamento dei dati: ' + error.message;
+      return;
+    }
+
+    allRows = data || [];
+    renderTable();
+  }
+
+  function renderTable(){
+    let rows = allRows;
+    if (currentFilter === 'partecipante') rows = rows.filter(r => r.tipo_interesse === 'partecipante');
+    if (currentFilter === 'volontario') rows = rows.filter(r => r.tipo_interesse === 'volontario');
+    if (currentFilter === 'da-contattare') rows = rows.filter(r => !r.contattato);
+
+    statsLine.textContent = `${allRows.length} interessati totali · ${allRows.filter(r => !r.contattato).length} da contattare`;
+
+    if (rows.length === 0) {
+      table.style.display = 'none';
+      emptyState.style.display = 'block';
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    table.style.display = 'table';
+    tableBody.innerHTML = '';
+
+    rows.forEach(row => {
+      const tr = document.createElement('tr');
+      const dataFmt = row.creato_il ? new Date(row.creato_il).toLocaleDateString('it-IT', { day:'2-digit', month:'2-digit', year:'numeric' }) : '—';
+      const contatto = [row.telefono, row.email].filter(Boolean).join(' · ') || '—';
+      const tipoLabel = row.tipo_interesse === 'volontario' ? 'Volontario' : 'Partecipante';
+      const tipoClass = row.tipo_interesse === 'volontario' ? 'volontario' : 'partecipante';
+
+      tr.innerHTML = `
+        <td>${escapeHtml(row.nome || '')} ${escapeHtml(row.cognome || '')}</td>
+        <td>${row.eta ? escapeHtml(String(row.eta)) : '—'}</td>
+        <td>${escapeHtml(contatto)}</td>
+        <td><span class="badge ${tipoClass}">${tipoLabel}</span></td>
+        <td>${dataFmt}</td>
+        <td>
+          <label class="contact-toggle">
+            <input type="checkbox" data-id="${row.id}" ${row.contattato ? 'checked' : ''}>
+            ${row.contattato ? 'Sì' : 'No'}
+          </label>
+        </td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+    document.querySelectorAll('.contact-toggle input').forEach(checkbox => {
+      checkbox.addEventListener('change', async (e) => {
+        const id = e.target.getAttribute('data-id');
+        const contattato = e.target.checked;
+        e.target.disabled = true;
+
+        const { error } = await supabaseClient
+          .from('interessati_iscrizione')
+          .update({ contattato })
+          .eq('id', id);
+
+        e.target.disabled = false;
+
+        if (error) {
+          dashMsg.className = 'top-msg error';
+          dashMsg.textContent = 'Errore nell\'aggiornamento: ' + error.message;
+          e.target.checked = !contattato;
+          return;
+        }
+
+        const rowData = allRows.find(r => r.id === id);
+        if (rowData) rowData.contattato = contattato;
+        renderTable();
+      });
+    });
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-filter');
+      renderTable();
+    });
+  });
+</script>
+
+</body>
+</html>
