@@ -571,6 +571,9 @@
     C.F. 96665090583 · Via Nurallao 9, Fiumicino (RM) · Registrazione RUNTS in corso<br>
     <span class="foot-hash">#APiccoleAli #Educazione #Inclusione #Aranova</span>
   </p>
+  <p class="foot-meta" style="margin-top:14px; opacity:.6; font-size:.72rem;">
+    Questo sito è il dominio ufficiale di A Piccole Ali (apiccoleali.it - 96665090583) per i servizi Google per il Non Profit.
+  </p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -619,6 +622,13 @@
         .insert([payload]);
 
       if (error) throw error;
+
+      // Invia notifica email (non blocca il flusso se fallisce)
+      fetch('/api/notifica-iscrizione', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(err => console.error('Notifica email non inviata:', err));
 
       msgBox.className = 'form-msg success';
       msgBox.textContent = 'Grazie! La tua richiesta è stata inviata: ti ricontatteremo presto.';
