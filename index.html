@@ -432,6 +432,15 @@
   }
   @media(prefers-reduced-motion: reduce){ .quick-bar{ transition:none; } }
 
+  /* Riassunto in testo della presentazione */
+  .pres-testo{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:44px 0 40px; }
+  @media(max-width:720px){ .pres-testo{ grid-template-columns:1fr; } }
+  .pres-box{ background:var(--white); border-radius:20px; padding:30px 28px; box-shadow:0 20px 50px -34px rgba(43,36,32,.28); border-left:5px solid var(--gold); }
+  .pres-box h3{ font-family:'Quicksand',sans-serif; font-weight:700; color:var(--teal-deep); font-size:1.05rem; letter-spacing:.02em; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .pres-box ul{ list-style:none; display:grid; gap:14px; }
+  .pres-box li{ color:var(--ink-soft); font-size:1.02rem; line-height:1.55; }
+  .pres-box li strong{ display:block; color:var(--ink); font-weight:600; font-size:1.08rem; }
+  .pres-chiusura{ grid-column:1 / -1; text-align:center; font-style:italic; color:var(--teal-deep); font-size:1.2rem; margin-top:4px; }
   /* Presentazione del progetto (carosello) */
   .presentazione{ margin:0 0 36px; }
   .presentazione-intro{ margin-top:28px !important; text-align:center; color:var(--ink-soft); max-width:560px; margin:0 auto 26px; }
@@ -591,6 +600,26 @@
         <div class="car-foot"><span class="car-count" id="car-count" aria-live="polite">1 / 10</span><div class="car-dots" id="car-dots"></div></div>
         <p class="car-hint">Scorri con il dito o con le frecce · tocca una slide per ingrandirla</p>
       </div>
+    </div>
+    <div class="pres-testo">
+      <div class="pres-box">
+        <h3><span class="icon-dot"></span>I nostri 4 pilastri</h3>
+        <ul>
+          <li><strong>Focus e attenzione</strong>Guardare il mondo e il proprio metodo di studio con consapevolezza.</li>
+          <li><strong>Curiosità infinita</strong>Il motore che trasforma il dovere in scoperta.</li>
+          <li><strong>Studio attivo</strong>Non ricevitori passivi, ma costruttori del proprio sapere.</li>
+          <li><strong>Diversità e talento</strong>Celebriamo ogni stile cognitivo e accompagniamo ogni percorso: la diversità è la nostra ricchezza.</li>
+        </ul>
+      </div>
+      <div class="pres-box">
+        <h3><span class="icon-dot"></span>Le 3 aree del nostro ecosistema</h3>
+        <ul>
+          <li><strong>Spazio Concentrazione</strong>Un luogo dove silenzio e supporto esperto si incontrano: metodo di studio, strumenti compensativi e strategie personalizzate.</li>
+          <li><strong>Studio Insieme</strong>L'area dedicata alla forza del gruppo e all'autonomia.</li>
+          <li><strong>Laboratori e Scoperte</strong>Biblioteca per ragazzi, postazioni computer, aiuto per tesine e ricerche, laboratori e workshop per coltivare passioni e talenti.</li>
+        </ul>
+      </div>
+      <p class="pres-chiusura">Ogni piccolo battito d'ali è un passo verso l'autonomia.</p>
     </div>
     <div class="volontario-card" style="margin-top:36px;">
       <p class="eyebrow">Sei uno studente delle superiori?</p>
